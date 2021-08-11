@@ -96,10 +96,10 @@
 	}
 
   function spot() {
-		jsbridge('{"uri":"window","method":"nav","data":"main/spot/buy"}');
+		jsbridge('{"uri":"window","method":"nav","data":"trade/main/page?systemType=auto&bizType=0&instId=eth_btc"}');
 	}
   function spot2() {
-		jsbridge('{"uri":"window","method":"nav","data":"main/spot/buy?symbol=eth_btc"}');
+		jsbridge('{"uri":"window","method":"nav","data":"trade/main/page","params":{"systemType":"auto", "bizType":"1", "instId":"btc_usdt", "tabType":"0"}}');
 	}
 	function recharge0() {
 		jsbridge('{"uri":"window","method":"nav","data":"recharge"}');
