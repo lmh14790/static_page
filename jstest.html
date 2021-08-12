@@ -38,7 +38,7 @@
     }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
 <!-- <script src="./jstest.util.js"></script>
 <script src="./jstest.js"></script> -->
@@ -74,17 +74,19 @@
             alipay = 'https://picker.antcloudauth.aliyuncs.com/gateway.do?alipay_sdk=alipay-sdk-java-3.6.0.ALL&app_id=2019062765775035&biz_content=%7B%22certify_id%22%3A%2222b75daddd39fc86fd2b891a0c731f8a%22%7D&charset=UTF-8&format=json&method=alipay.user.certify.open.certify&sign=rb7fA0or67sIRVj0ICOcFuJwfKDUE7E4x18YxMn0%2BJ3YKLmbdtoyUDbX3JtYrvTjtzqz%2FqRvaew1Wu5L1eLNK0VnaORXYri7d6UaWZoVuOFLu%2Bu3J7hYGrE7NPcjLKVly7LXyPNmJ13H8QeZtZikZ6Dn68L%2B5jOyS%2Bxg4yKEWbqXAwH1wBnv3uH8PdMwMNWCLz8yD6o3yBK7KMN6LIU9hE9ed9PRViaueKufYOFdLd6sQpKIbQVePgsJ77M7jJ1gW%2BGQfDS4EEZwolynOTSlPq11qhwjdjNFDAo90AmcG9ga%2Bp4zRnpwfquNa3W4dm7C2c%2FBbgX6pxZI%2BeMm%2BRV06A%3D%3D&sign_type=RSA2&timestamp=2020-01-08+10%3A37%3A40&version=1.0'
 
             addItem("tradeMainspot1", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "bizType": "0", "instId": "okb_usdt", "tabType": "0" } });
-            addItem("tradeMainspot2", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "0", "instId": "LTC-USDT", "tabType": "1" } });
-            addItem("tradeMainMargin", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "1", "instId": "MATIC-USDT", "tabType": "2" } });
-            addItem("tradeMainSWAP2", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "2", "instId": "SHIB-USDT-SWAP" } });
-            addItem("tradeMainFuture", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "3", "instId": "FIL-USD-210820" } });
-            addItem("tradeMainOption", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "4", "instId": "BTC-USD-210812-45500-C" } });
+            addItem("tradeMainspot2", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "0", "instId": "LTC-USDT" } });
+            addItem("tradeMainMargin", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "1", "instId": "MATIC-USDT" } });
+            addItem("tradeMainSWAP1", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "2", "instId": "DOGE-USDT-SWAP", "tabType": "0" } });
+            addItem("tradeMainSWAP2", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "2", "instId": "SHIB-USDT-SWAP", "tabType": "1" } });
+            addItem("tradeMainFuture", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "3", "instId": "FIL-USD-210820", "tabType": "2" } });
+            addItem("tradeMainOption", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "4", "instId": "BTC-USD-210812-45500-C", "tabType": "1" } });
 
             addItem("tradeMainspot1-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?bizType=0&instId=okb_usdt&tabType=0"});
-            addItem("tradeMainspot2-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=0&instId=LTC-USDT&tabType=1"});
-            addItem("tradeMainMargin-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=1&instId=MATIC-USDT&tabType=2"});
-            addItem("tradeMainSWAP2-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=2&instId=SHIB-USDT-SWAP"});
-            addItem("tradeMainFuture-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=3&instId=FIL-USD-210820"});
+            addItem("tradeMainspot2-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=0&instId=LTC-USDT"});
+            addItem("tradeMainMargin-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=1&instId=MATIC-USDT"});
+            addItem("tradeMainSWAP1-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=2&instId=DOGE-USDT-SWAP&tabType=0"});
+            addItem("tradeMainSWAP2-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=2&instId=SHIB-USDT-SWAP&tabType=1"});
+            addItem("tradeMainFuture-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=3&instId=FIL-USD-210820&tabType=2"});
             addItem("tradeMainOption-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=4&instId=BTC-USD-210812-45500-C"});
 
             addItem('跳支付宝', { "uri": "window", "method": "openBrowser", "data": alipay, "success": "success", "fail": "fail" })
