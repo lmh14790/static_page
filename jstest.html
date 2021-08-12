@@ -1,0 +1,394 @@
+<html>
+
+<head>
+    <h1>OKCoin 移动端 JavaScript 交互测试页面</h1>
+</head>
+
+<body>
+    <div id="app">
+        <template v-for="item in items">
+            <div class="btn" v-on:click="onClick(item)">{{ item.name }}</div>
+            <a class="herf" v-if="item.url" :href="item.url">HTTP 路由:{{ item.name}}</a>
+        </template>
+    </div>
+</body>
+
+<style type="text/css">
+    h1 {
+        text-align: center;
+        font-size: 250%;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .btn {
+        border: 1px solid green;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        line-height: 2.4;
+        text-align: center;
+        font-size: 28px
+    }
+
+    .herf {
+        font-size: 24;
+        color: green;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<!-- <script src="./jstest.util.js"></script>
+<script src="./jstest.js"></script> -->
+
+<script>
+    var TypeEnum = {
+        Default: 1,    // 默认事件
+        Function: 2,   // 方法
+        Scheme: 3,     // Scheme 跳转
+    };
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            items: []
+        },
+        mounted: function () {
+            _this = this;
+            function addItem(name, data, type) {
+                if (type) {
+                    _this.items.push({ name, data, type })
+                } else {
+                    let url;
+                    if (data.uri == "window" && data.method == "nav" && typeof data.data == "string") {
+                        url = "okex://" + data.data;
+                    }
+                    console.log(url);
+                    _this.items.push({ name, data, type: TypeEnum.Default, url })
+                }
+            }
+
+            let alipay = 'http://kong-proxy.test-d-okex.svc.test.local:8443/mobile/ali-face';
+            alipay = 'https://picker.antcloudauth.aliyuncs.com/gateway.do?alipay_sdk=alipay-sdk-java-3.6.0.ALL&app_id=2019062765775035&biz_content=%7B%22certify_id%22%3A%2222b75daddd39fc86fd2b891a0c731f8a%22%7D&charset=UTF-8&format=json&method=alipay.user.certify.open.certify&sign=rb7fA0or67sIRVj0ICOcFuJwfKDUE7E4x18YxMn0%2BJ3YKLmbdtoyUDbX3JtYrvTjtzqz%2FqRvaew1Wu5L1eLNK0VnaORXYri7d6UaWZoVuOFLu%2Bu3J7hYGrE7NPcjLKVly7LXyPNmJ13H8QeZtZikZ6Dn68L%2B5jOyS%2Bxg4yKEWbqXAwH1wBnv3uH8PdMwMNWCLz8yD6o3yBK7KMN6LIU9hE9ed9PRViaueKufYOFdLd6sQpKIbQVePgsJ77M7jJ1gW%2BGQfDS4EEZwolynOTSlPq11qhwjdjNFDAo90AmcG9ga%2Bp4zRnpwfquNa3W4dm7C2c%2FBbgX6pxZI%2BeMm%2BRV06A%3D%3D&sign_type=RSA2&timestamp=2020-01-08+10%3A37%3A40&version=1.0'
+
+            addItem("tradeMainspot1", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "bizType": "0", "instId": "okb_usdt", "tabType": "0" } });
+            addItem("tradeMainspot2", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "0", "instId": "LTC-USDT", "tabType": "1" } });
+            addItem("tradeMainMargin", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "1", "instId": "MATIC-USDT", "tabType": "2" } });
+            addItem("tradeMainSWAP2", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "2", "instId": "SHIB-USDT-SWAP" } });
+            addItem("tradeMainFuture", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "3", "instId": "FIL-USD-210820" } });
+            addItem("tradeMainOption", { "uri": "window", "method": "nav", "data": "trade/main/page", "params": { "systemType": "auto", "bizType": "4", "instId": "BTC-USD-210812-45500-C" } });
+
+            addItem("tradeMainspot1-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?bizType=0&instId=okb_usdt&tabType=0"});
+            addItem("tradeMainspot2-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=0&instId=LTC-USDT&tabType=1"});
+            addItem("tradeMainMargin-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=1&instId=MATIC-USDT&tabType=2"});
+            addItem("tradeMainSWAP2-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=2&instId=SHIB-USDT-SWAP"});
+            addItem("tradeMainFuture-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=3&instId=FIL-USD-210820"});
+            addItem("tradeMainOption-url-param", { "uri": "window", "method": "nav", "data": "trade/main/page?systemType=auto&bizType=4&instId=BTC-USD-210812-45500-C"});
+
+            addItem('跳支付宝', { "uri": "window", "method": "openBrowser", "data": alipay, "success": "success", "fail": "fail" })
+            addItem('跳 Telegram', 'https://www.baidu.com')
+            addItem('注入内置浏览器设置', { "uri": "request", "method": "setting", "data": { "showShareButton": false, "showRefreshHeader": true }, "success": "success", "fail": "fail" })
+            addItem('弹出调试信息', { "uri": "request", "method": "debug", "data": "我是一条测试信息" })
+            addItem('获取 token', 'getToken()', TypeEnum.Function)
+            addItem('获取 Apple Pay 状态', { "uri": "request", "method": "applePayState", "success": "success", "fail": "fail" })
+
+            addItem('关闭页面', { "uri": "window", "method": "close", "data": true })
+            addItem('分享图文', { "uri": "request", "method": "share", "data": { "body": null, "imageUrl": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572944658096&di=5e8619b92cd494ddd7c3fee56f76deda&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fdc54564e9258d1092f7663c9db58ccbf6c814d30.jpg", }, "success": "success", "fail": "fail" })
+            addItem('分享图片', { "uri": "request", "method": "shareImage", "data": { "body": "分享内容文本", "imageUrl": "https://bafangpublic.oss-cn-hangzhou.aliyuncs.com/oksupport/support/activity/vote-man-cn@1x.jpg", "linkUrl": "", "title": "" }, "success": "success", "fail": "fail" })
+            addItem('分享http图片', { "uri": "request", "method": "shareImage", "data": { "body": "分享内容文本", "imageUrl": "http://bafangpublic.oss-cn-hangzhou.aliyuncs.com/oksupport/support/activity/vote-man-cn@1x.jpg", "linkUrl": "https://www.baidu.com/", "title": "分享标题" }, "success": "success", "fail": "fail" })
+            addItem('分享https图片', { "uri": "request", "method": "shareImage", "data": { "imageUrl": "https://bafangpublic.oss-cn-hangzhou.aliyuncs.com/oksupport/support/activity/vote-man-cn@1x.jpg" }, "success": "success", "fail": "" })
+            addItem('分享https图片指定分享平台', { "uri": "request", "method": "shareImage", "data": { "imageUrl": "https://bafangpublic.oss-cn-hangzhou.aliyuncs.com/oksupport/support/activity/vote-man-cn@1x.jpg", "isShowWeChat": true, "isShowMoments": false, "isShowWeibo": true, "isShowTelegram": false, "isShowClip": false, "isShowSave": false, }, "success": "success", "fail": "fail" })
+            addItem('分享base64图片', { "uri": "request", "method": "shareImageBase64", "data": { "base64Image": 'data:image/png;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=' }, "success": "success", "fail": "fail" })
+            addItem('调用 native 分享', { "uri": "request", "method": "nativeShare", "success": "success", "fail": "fail" })
+            addItem('开启外部浏览器', { "uri": "window", "method": "openBrowser", "data": "https://www.baidu.com", "success": "success", "fail": "fail" })
+            addItem('唤起登录', { "uri": "window", "method": "nativeLogin", "data": "login?name=1234567890", "success": "success", "fail": "fail" })
+            addItem('跳转注册页面', { "uri": "window", "method": "nav", "data": "regist", "success": "success", "fail": "fail" })
+            addItem('调起币币交易买(无symbol)', { "uri": "window", "method": "nav", "data": "main/spot/buy", "success": "success", "fail": "fail" })
+            addItem('调起币币交易卖(无symbol)', { "uri": "window", "method": "nav", "data": "main/spot/sell", "success": "success", "fail": "fail" })
+            addItem('调起币币交易买(symbol=okb_usdt)', { "uri": "window", "method": "nav", "data": "main/spot/buy?symbol=okb_usdt", "success": "success", "fail": "fail" })
+            addItem('调起币币交易卖(symbol=okb_usdt)', { "uri": "window", "method": "nav", "data": "main/spot/sell?symbol=okb_usdt", "success": "success", "fail": "fail" })
+            addItem('调起交割合约交易', { "uri": "window", "method": "nav", "data": "main/futures/trade?symbol=f_usd_btc&futuresType=4", "success": "success", "fail": "fail" })
+            addItem('调起永续合约交易', { "uri": "window", "method": "nav", "data": "main/futures/swap/trade?contract=BCH-USD-SWAP", "success": "success", "fail": "fail" })
+            addItem('跳转资产页面', { "uri": "window", "method": "nav", "data": "account_assets", "success": "success", "fail": "fail" })
+            addItem('跳转资金划转页面', { "uri": "window", "method": "nav", "data": "assets_transfer?asset_transfer_type=3&asset_product_id=btc_usdt", "success": "success", "fail": "fail" })
+            addItem('切换交割合约杠杆新旧模式', { "uri": "window", "method": "nav", "data": "futures_force_mode_select?currency=TRX", "success": "success", "fail": "fail" })
+            addItem('跳转身份认证页面', { "uri": "window", "method": "nav", "data": "kyc", "success": "success", "fail": "fail" })
+            addItem('跳转法币页面', { "uri": "window", "method": "nav", "data": "main/otc", "success": "success", "fail": "fail" })
+            addItem('获取 DeviceID', { "uri": "request", "method": "getDeviceID", "success": "success", "fail": "fail" })
+            addItem('调用不存在的方法:window', { "uri": "window", "method": "notfunction", "success": "success", "fail": "fail" })
+            addItem('调用不存在的方法:request', { "uri": "request", "method": "notfunction", "success": "success", "fail": "fail" })
+            addItem('跳转充值', { "uri": "window", "method": "nav", "data": "recharge", "success": "success", "fail": "fail" })
+            addItem('跳转首页', { "uri": "window", "method": "nav", "data": "main/home", "success": "success", "fail": "fail" })
+            addItem('跳转行情', { "uri": "window", "method": "nav", "data": "main/market", "success": "success", "fail": "fail" })
+            addItem('跳转法币快捷', { "uri": "window", "method": "nav", "data": "main/otc?pageType=0", "success": "success", "fail": "fail" })
+            addItem('跳转法币自选', { "uri": "window", "method": "nav", "data": "main/otc?pageType=1", "success": "success", "fail": "fail" })
+            addItem('跳转币币', { "uri": "window", "method": "nav", "data": "main/spot", "success": "success", "fail": "fail" })
+            addItem('跳转杠杆', { "uri": "window", "method": "nav", "data": "main/spot/leverage", "success": "success", "fail": "fail" })
+            addItem('跳转交割', { "uri": "window", "method": "nav", "data": "main/futures/trade", "success": "success", "fail": "fail" })
+            addItem('跳转永续', { "uri": "window", "method": "nav", "data": "main/futures/swapTrade", "success": "success", "fail": "fail" })
+            addItem('跳转期权', { "uri": "window", "method": "nav", "data": "main/futures/optionTrade?instrument_id=BTC-USD-200117-8250-C", "success": "success", "fail": "fail" })
+            addItem('跳转矿池', { "uri": "window", "method": "nav", "data": "pool?home_tab=hold&coin_detail=102", "success": "success", "fail": "fail" })
+            addItem('webview 内部打开新链接', { "uri": "window", "method": "nav", "data": "web?url=https://www.baidu.com", "success": "success", "fail": "fail" })
+            addItem('分享客户端合成图片', waterMarkData())
+            addItem('生成二维码', qrCodeData())
+            addItem('获取 meta', 'getMeta()', TypeEnum.Function)
+
+            addItem('期权测试', { "uri": "request", "method": "Onxxx", "data": "112233", "success": "success", "fail": "fail" })
+
+            addItem('Safari-法币充值', "okex://main/otc", TypeEnum.Scheme)
+            addItem('Safari-充币', "okex://recharge?type=1", TypeEnum.Scheme)
+            addItem('Safari-币币交易', "okex://main/spot/buy?symbol=okb_usdt", TypeEnum.Scheme)
+            addItem('Safari-合约交易', "okex://main/futures/trade", TypeEnum.Scheme)
+            addItem('Safari-合约大数据', "okex://route_futures_datas_chart", TypeEnum.Scheme)
+            addItem('Safari-期权交易', "okex://main/futures/options/trade", TypeEnum.Scheme)
+        },
+        methods: {
+            onClick: function (item) {
+                switch (item.type) {
+                    case TypeEnum.Default:
+                        if (isUrl(item.data)) {
+                            herfToURL(item.data);
+                        } else {
+                            jsbridge(item.data);
+                        }
+                        break;
+
+                    case TypeEnum.Function:
+                        eval(item.data);
+                        break;
+
+                    case TypeEnum.Scheme:
+                        herfToURL(item.data);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+    })
+
+    function jsbridge(msg) {
+        if (isiOSDevice()) {
+            if (window.webkit) {
+                window.webkit.messageHandlers.JShandle.postMessage(msg);
+            }
+        } else {
+            var msgStr = JSON.stringify(msg);
+            prompt(msgStr);
+        }
+    }
+
+    function success(res) {
+        alert(`111 + ${res}`);
+        jsbridge({ "uri": "request", "method": "debug", "data": "success:" + res });
+    }
+
+    function fail(res) {
+        alert(`222 + ${res}`);
+        jsbridge({ "uri": "request", "method": "debug", "data": "fail:" + res });
+    }
+
+    function onReloadToken(res) {
+        jsbridge({ "uri": "request", "method": "debug", "data": "onReloadToken:" + res });
+    }
+
+    function nativeGoBackAction() {
+        alert('客户端点击了返回按钮')
+    }
+
+    function onVisibilityChange(state) {
+        console.log(state);
+        console.log(typeof state);
+    }
+
+    // 测试代码
+    function getToken() {
+        if (isiOSDevice()) {
+            iOS.callNative('getToken', function (token) {
+                alert('getToken:' + token);
+            })
+        } else {
+            var token = window.native.getToken();
+            alert('getToken: ' + token);
+        }
+    }
+
+    function genImageSuccess(res) {
+        jsbridge({
+            "uri": "request", "method": "share", "data": {
+                "imageUrl": res,
+                "isShowWeChat": true,
+                "isShowMoments": false,
+                "isShowWeibo": false,
+                "isShowTelegram": false,
+                "isShowClip": false,
+                "isShowSave": false
+            }
+        });
+    }
+
+    function waterMarkData() {
+        var iconURL = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606976186725&di=cf3e0a5aaa13f4e13aaefa236f1cf58b&imgtype=0&src=http%3A%2F%2Fimg.haote.com%2Fupload%2Fqrcode%2F1525%2Fhaote4b1d603ab648a89b5a170473627bfb4a.png';
+        var data = {
+            outputType: 0, //0 file (default), 1 base64
+            url: "http://static.bafang.com/cdn/assets/imgs/2012/E148719B12E4AF03.png",
+            w: 517,
+            h: 920,
+            outputType: 0,
+            watermark: [{
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'nw',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'north',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'ne',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'west',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'center',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'east',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'sw',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'south',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'image',
+                url: iconURL,
+                t: 100,
+                g: 'se',
+                w: 110,
+                h: 110,
+                x: 0,
+                y: 0,
+            },
+            {
+                type: 'text',
+                text: '我是一条文本信息',
+                t: 100,
+                g: 'center',
+                x: 100,
+                y: 100,
+                font: {
+                    size: 20,
+                    color: '#ffffff',
+                    weight: 1,
+                    style: 'italic'
+                }
+            }]
+        };
+
+        var param = {
+            uri: 'request',
+            method: 'createImageWithMark',
+            data: data,
+            success: 'genImageSuccess',
+            // fail: 'fail',
+        }
+        return param;
+    }
+
+    function getMeta() {
+        alert('theme:' + window.okMeta.theme + '\n' + 'statusBarHeight:' + window.okMeta.statusBarHeight);
+    }
+
+    function qrCodeData() {
+        var data = {
+            url: "http://www.baidu.com",
+            w: 200,
+            h: 200,
+            outputType: 0,
+            logo: {
+                url: "http://daily-test.okcoin-inc.com/cdn/assets/imgs/207/2E664E470103C613.png",
+                w: 40,
+                h: 40,
+            }
+        }
+        return { uri: "request", method: "createQRCodeImage", data: data, success: "genImageSuccess", fail: "fail" };
+    }
+
+    function herfToURL(url) {
+        window.location.href = url;
+    }
+
+    function isiOSDevice() {
+        if (navigator.userAgent.indexOf('iPhone') > -1 || navigator.userAgent.indexOf('iOS') > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isUrl(url) {
+        return /^(https?:\/\/(([a-zA-Z0-9]+-?)+[a-zA-Z0-9]+\.)+[a-zA-Z]+)(:\d+)?(\/.*)?(\?.*)?(#.*)?$/.test(url)
+    }
+
+</script>
+
+</html>
