@@ -37,6 +37,7 @@
 <h2 onClick="gotoDex()"> dex交易页面</h2>
 <h2 onClick="gotoDexHistory()"> dex历史页面</h2>
 <h2 onClick="gotoDexHistoryDetail()"> dex交易详情</h2>
+<h2 onClick="gotoWalletHistory()"> wallet历史</h2>
 </body>
 <script type="text/javascript">
 
@@ -158,6 +159,10 @@
 
 	function  gotoDexHistoryDetail(){
         jsbridge('{"uri":"window","method":"nav","data":"metaX/dex/history/detail?orderId=9804057570184192"}');
+	} 
+
+	function  gotoWalletHistory(){
+        jsbridge('{"uri":"window","method":"nav","data":"metaX/wallet/history?walletId=bf13c330-3a19-4f82-9d7e-0ffd14e7f2a7"}');
 	} 
 
 	function jsbridge(msg) {
