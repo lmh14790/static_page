@@ -34,9 +34,12 @@
 <h2 onClick="quickChange2()"> 调起兑换to=BTC(toCurrencyId=0)</h2>
 <h2 onClick="quickChange3()"> 调起兑换from=BTC&to=USDT(fromCurrencyId=0&toCurrencyId=7)</h2>
 <h2 onClick="quickChange4()"> 调起兑换from=USDT&to=BTC(fromCurrencyId=7&toCurrencyId=0)</h2>
-<h2 onClick="gotoDex()"> dex交易页面</h2>
-<h2 onClick="gotoDexHistory()"> dex历史页面</h2>
-<h2 onClick="gotoDexHistoryDetail()"> dex交易详情</h2>
+<h2 onClick="gotoDex()">  matex dex交易页面</h2>
+<h2 onClick="gotoDexHistory()"> matex dex历史页面</h2>
+<h2 onClick="gotoDexHistoryDetail()"> matex dex交易详情</h2>
+<h2 onClick="gotoWalletDex()">  wallet dex交易页面</h2>
+<h2 onClick="gotoWalletDexHistory()"> wallet dex历史页面</h2>
+<h2 onClick="gotoWalletDexHistoryDetail()"> wallet dex交易详情</h2>
 <h2 onClick="gotoWalletHistory()"> wallet历史</h2>
 </body>
 <script type="text/javascript">
@@ -159,6 +162,17 @@
 
 	function  gotoDexHistoryDetail(){
         jsbridge('{"uri":"window","method":"nav","data":"metaX/dex/history/detail?orderId=9804057570184192"}');
+	} 
+	function  gotoWalletDex(){
+        jsbridge('{"uri":"window","method":"nav","data":"wallet/dex/swap"}');
+	}  
+
+	function  gotoWalletDexHistory(){
+        jsbridge('{"uri":"window","method":"nav","data":"wallet/dex/history"}');
+	}
+
+	function  gotoWalletDexHistoryDetail(){
+        jsbridge('{"uri":"window","method":"nav","data":"wallet/dex/history/detail?orderId=9804057570184192"}');
 	} 
 
 	function  gotoWalletHistory(){
