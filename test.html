@@ -184,6 +184,10 @@
 		jsbridge('{"uri":"window","method":"nav","data":"wallet/dex/gasStation?chainId=66"}');
 	}
 
+	function goToGasStationTest(){
+		jsbridge('{"uri":"window","method":"nav","data":"wallet/dex/gasStation?chainId=66"}');
+	}
+	
 	function jsbridge(msg) {
 		if (navigator.userAgent.indexOf('iPhone') > -1 || navigator.userAgent.indexOf('iOS') > -1){
 			if (window.webkit) {
